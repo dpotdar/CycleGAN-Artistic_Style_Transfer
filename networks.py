@@ -1,26 +1,8 @@
-# -*- coding: utf-8 -*-
-
-__author__ = "Rahul Bhalley"
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
 from config import N_CHANNELS
-
-###################
-# Neural Networks #
-###################
-# --------------- #
-# ResidualBlock   #
-# --------------- #
-# ConvTranspose2d #
-# --------------- #
-# Generator       #
-# --------------- #
-# Critic          #
-###################
-
 
 class ResidualBlock(nn.Module):
     
