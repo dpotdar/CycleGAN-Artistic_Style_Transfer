@@ -81,7 +81,7 @@ F_optim = optim.Adam(F.parameters(),   lr=LR, betas=(BETA1, BETA2))
 
 
 ###############
-# Training 🧠 #
+# Training #
 ###############
 
 def train():
@@ -124,10 +124,7 @@ def train():
         #################
         # Train Critics #
         #################
-
-        # Update gradient computation:
-        # ∙ 👎 Generators
-        # ∙ 👍 Critics
+        
         for param in G.parameters():
             param.requires_grad_(False)
         for param in F.parameters():
@@ -138,10 +135,6 @@ def train():
             param.requires_grad_(True)
 
         for j in range(2):
-
-            # Forward passes:
-            # ∙ X -> Y
-            # ∙ Y -> X
 
             # Domain translation: X -> Y
             with torch.no_grad():
@@ -158,10 +151,6 @@ def train():
             # Zerofy the gradients
             C_X_optim.zero_grad()
             C_Y_optim.zero_grad()
-
-            # Compute the losses:
-            # ∙ QP-div loss (critizing x data),     Y -> X
-            # ∙ QP-div loss (critizing y data),     X -> Y
 
             # QP-div loss (critizing x data)
             x_loss = C_X_x - C_X_F_y    # real score - fake score
@@ -195,9 +184,6 @@ def train():
         # Train Generators #
         ####################
 
-        # Update gradient computation:
-        # ∙ 👍 Generators
-        # ∙ 👎 Critics
         for param in G.parameters():
             param.requires_grad_(True)
         for param in F.parameters():
@@ -208,12 +194,6 @@ def train():
             param.requires_grad_(False)
 
         for j in range(1):
-
-            # Forward passes:
-            # ∙ X -> Y
-            # ∙ Y -> X
-            # ∙ X -> Y -> X
-            # ∙ Y -> X -> Y
 
             # Domain translation: X -> Y
             G_x = G(x)          # G(x),     X -> Y
@@ -233,13 +213,6 @@ def train():
             G_optim.zero_grad()
             F_optim.zero_grad()
 
-            # Compute the losses:
-            # ∙ QP-div loss (critizing x data),     Y -> X
-            # ∙ QP-div loss (critizing y data),     X -> Y
-            # ∙ Cycle-consistency loss,             || F(G(x)) - x || L1
-            # ∙ Cycle-consistency loss,             || G(F(y)) - y || L1
-            # ∙ Identity loss,                      || G(x) - y || L1
-            # ∙ Identity loss,                      || F(y) - x || L1
 
             # QP-div losses
             x_loss = C_X_x - C_X_F_y        # real score - fake score
@@ -301,7 +274,7 @@ def train():
 
 
 ################
-# Inference 🧠 #
+# Inference #
 ################
 
 def infer(iteration, style, img_name, in_img_dir, out_rec_dir, out_sty_dir, img_size=None):
@@ -360,7 +333,6 @@ def infer(iteration, style, img_name, in_img_dir, out_rec_dir, out_sty_dir, img_
         print("Reconstruction")
         rec_img = G(sty_img)    # X -> Y
 
-    # WARNING: Please do not change this code snippet with a closed mind. 🤪👻
     iteration = int(iteration / 1000)
     only_img_name = img_name.split('.')[0]
     img_type = img_name.split('.')[1]
