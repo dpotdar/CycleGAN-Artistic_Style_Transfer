@@ -26,7 +26,7 @@ SAMPLE_DIR = "samples"
 LAMBDA = 10.0
 NORM = "l1"
 
-# CycleGAN++
+# CycleGAN
 CYC_WEIGHT = 10.0
 ID_WEIGHT = 0.5
 
@@ -35,7 +35,7 @@ N_CHANNELS = 3
 UPSAMPLE = True
 
 # Training
-RANDOM_SEED = 12345
+RANDOM_SEED = 123
 BATCH_SIZE = 4
 LR = 2e-4
 BETA1 = 0.5
