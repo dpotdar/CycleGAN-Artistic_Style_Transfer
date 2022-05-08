@@ -43,11 +43,6 @@ def get_infinite_Y_data(Y_set):
         for y, _ in Y_set:
             yield y
 
-# There's some problem with batch size 
-# of sampled data using `torchvision`.
-# 
-# This block of code tries to 
-# eliminate the problem.
 
 def safe_sampling(X_data, Y_data, device):
 
